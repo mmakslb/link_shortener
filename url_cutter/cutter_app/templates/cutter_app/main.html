@@ -1,0 +1,31 @@
+{% extends 'cutter_app/base.html' %}
+
+{% block content %}
+<div class="container my-auto">
+    <div class="card mt-5">
+        <div class="card-header text-center py-3">
+            <h1>Paste the URL to be shortened</h1>
+        </div>
+        <div class="px-3 py-4">
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div class="text-center">
+                    <div class="text-center">{{form.long_url}}</div>
+                    <div class="text-center">
+
+                        <button class="btn btn-blue btn-lg" type="submit">
+                            Shorten
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    {% if errors %}
+    <div class="alert alert-danger mt-4" role="alert">
+        <p>{{errors}}</p>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

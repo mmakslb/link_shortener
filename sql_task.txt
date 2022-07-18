@@ -1,0 +1,34 @@
+1. Необходимо написать запрос,
+который находит  сколько ставок сыграло и не сыграло у каждого пользователя.
+SELECT
+    client_number AS client,
+    SUM(outcome = 'win') as wins,
+    SUM(outcome = 'lose') AS loses
+FROM bid b
+INNER JOIN event_value ev
+    ON b.play_id = ev.play_id
+    AND b.coefficient = ev.value
+GROUP BY
+    1
+2. Необходимо написать запрос, который находит сколько раз между собой играли команды. Важно, если команда А играла против команды В, а затем команда В играла против команды А, то это считается как одно и тоже событие. То есть, результат должен быть следующим: А против В - 2 игры.
+SELECT
+    u.team1,
+    u.team2,
+    COUNT(*)
+FROM (
+    SELECT
+        home_team team1,
+        away_team team2
+    FROM event_entity
+
+    UNION ALL
+
+    SELECT
+        away_team team1,
+        home_team team2
+    FROM event_entity
+) u
+WHERE u.team1 < u.team2
+GROUP BY
+    u.team1,
+    u.team2

@@ -1,0 +1,47 @@
+{% extends 'cutter_app/base.html' %}
+
+{% block content %}
+{% if not request.user.is_authenticated %}
+<div class="container my-auto">
+    <div class="card mt-5">
+        <div class="card-header text-center py-3">
+            <h1>Please</h1>
+            <a href="{% url 'login' %}" type="button" class="btn btn-dark btn-lg text-white">Log In</a>
+            <h1>or</h1>
+            <a href="{% url 'registration' %}" type="button" class="btn btn-primary btn-lg text-white">Sign UP</a>
+        </div>
+    </div>
+</div>
+{% endif %}
+{% if request.user.is_authenticated %}
+<div class="container my-auto">
+    <div class="card mt-5">
+
+        <div class="card-header text-center py-3">
+            {% csrf_token %}
+            <h1>{{request.user}}'s links</h1>
+        </div>
+        <table border="1">
+            <tr>
+                <th>Full Link</th>
+                <th>Short Link</th>
+                <th>Times Followed</th>
+            </tr>
+            {% for link in queryset %}
+            <tr>
+                <td><a href="{{link.long_url}}">{{link.long_url}}</a></td>
+                <td><a href="http://{{request.META.HTTP_HOST}}/{{link.short_url}}">{{request.META.HTTP_HOST}}/{{link.short_url}}</a>
+                </td>
+                <td>{{link.times_followed}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+
+    </div>
+    <div class="text-center mt-3">
+        <button class="btn btn-blue btn-lg" type="submit"><a href="{% url 'main' %}" class="text-white">New Shorten</a>
+        </button>
+    </div>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends 'cutter_app/base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container mt-5"></div>
+<center>
+    <h3 class='mt-5'>Sign Up</h3>
+    <div class='col-sm-4 col-sm-offset-2'>
+        <hr>
+
+        <form action='' method="POST">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <input type='submit' class='btn btn-primary' value='Sign Up'>
+        </form>
+
+    </div>
+</center>
+{% endblock %}

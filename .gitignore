@@ -1,0 +1,6 @@
+.venv
+.idea
+__pycache__
+.env
+prod_settings.py
+local_settings.py

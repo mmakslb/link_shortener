@@ -1,0 +1,32 @@
+{% extends 'cutter_app/base.html' %}
+
+{% block content %}
+<div class="container my-auto">
+    <div class="card mt-5">
+        <div class="card-header text-center py-3">
+            <div class="mx-auto text-center mt-5">
+                <h2 class="text-success">Your shortened Url</h2>
+                <a href="{{new_url}}">{{new_url}}</a>
+                <p><span class="text-danger">Full URL:</span> {{long_url}}</p>
+            </div>
+            <div class="text-center">
+
+                <button class="btn btn-blue btn-lg" type="submit"><a href="{% url 'main' %}" class="text-white">New
+                    Shorten</a>
+
+                </button>
+            </div>
+            {% if request.user.is_authenticated %}
+            <div class="text-center">
+
+                <button class="btn btn-blue btn-lg" type="submit"><a href="{% url 'links' %}" class="text-white">Links
+                    list</a>
+
+                </button>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
